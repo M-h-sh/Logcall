@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>View Logged Calls</title>
+    <!-- Bootstrap CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body>
+
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <form action="index.php" method="post">
+                <div class="card">
+                    <div class="card-body">
+                        <h2 class="card-title text-center">Logged Calls</h2>
+
+                        <!-- Display logged calls here -->
+                        <ul id="loggedCallsList" class="list-group">
+                            <?php foreach ($loggedCalls as $call) : ?>
+                                <li class="list-group-item">
+                                    <strong>Call ID:</strong> <?php echo $call['id']; ?><br>
+                                    <strong>Location:</strong> <?php echo $call['location']; ?><br>
+                                    <strong>Street Address:</strong> <?php echo $call['street_address']; ?><br>
+                                    <strong>City:</strong> <?php echo $call['city']; ?><br>
+                                    <strong>Zip Code:</strong> <?php echo $call['zip_code']; ?><br>
+                                    <strong>Description:</strong> <?php echo $call['description']; ?><br>
+                                    <strong>Date:</strong> <?php echo $call['date']; ?><br>
+                                </li>
+                            <?php endforeach; ?>
+                        </ul>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-danger">Logout</button>
+            </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS and Popper.js (Optional) -->
+    <script src="js/bootstrap.bundle.min.js"></script>
+
+    <!-- Custom JavaScript to fetch and display logged calls -->
+    <script>
+        // Fetch and display logged calls when the page loads
+        document.addEventListener("DOMContentLoaded", function () {
+            fetchLoggedCalls();
+        });
+
+        function fetchLoggedCalls() {
+            // You may use AJAX/fetch to request logged calls from the server
+            // For demonstration, let's assume you have an array of logged calls
+            var loggedCalls = [
+                { id: 1, description: "Issue with street light", date: "2023-10-15" },
+                { id: 2, description: "Pothole on Main Street", date: "2023-10-14" },
+                // Add more logged calls as needed
+            ];
+
+            // Display the logged calls in the table
+            var loggedCallsTableBody = document.getElementById("loggedCallsTableBody");
+            loggedCallsTableBody.innerHTML = ""; // Clear existing content
+
+            loggedCalls.forEach(function (call) {
+                var row = loggedCallsTableBody.insertRow();
+                row.innerHTML = `<td>${call.id}</td><td>${call.description}</td><td>${call.date}</td>`;
+            });
+        }
+    </script>
+</body>
+
+</html>

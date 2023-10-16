@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Login</title>
+    <!-- Bootstrap CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body>
+
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h2 class="card-title text-center">Login</h2>
+                        <form id="loginForm" action="login_form.php" method="post"
+                            onsubmit="return validateLoginForm()">
+                            <!-- Email -->
+                            <div class="mb-3">
+                                <label for="email" class="form-label">Email</label>
+                                <input type="email" class="form-control" id="email" name="email" required>
+                            </div>
+
+                            <!-- Password -->
+                            <div class="mb-3">
+                                <label for="password" class="form-label">Password</label>
+                                <div class="input-group">
+                                    <input type="password" class="form-control" id="password" name="password"
+                                        required>
+                                    <div class="input-group-append">
+                                        <div class="input-group-text">
+                                            <input type="checkbox" id="showPassword" onclick="togglePassword()">
+                                            <label for="showPassword" class="form-check-label">Show Password</label>
+                                            <input type="checkbox" id="savePassword">
+                                            <label for="savePassword" class="form-check-label">Save Password</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="loginError" class="text-danger"></div>
+                            </div>
+
+                            <!-- Submit Button -->
+                            <button type="submit" class="btn btn-primary">Login</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS and Popper.js (Optional) -->
+    <script src="js/bootstrap.bundle.min.js"></script>
+
+    <!-- Custom JavaScript for form validation -->
+    <script>
+        // Check if the user has a saved preference for showing the password
+        document.addEventListener("DOMContentLoaded", function () {
+            var savePasswordCheckbox = document.getElementById("savePassword");
+            var passwordInput = document.getElementById("password");
+
+            // Retrieve the saved preference from local storage
+            var savedPreference = localStorage.getItem("showPassword");
+
+            if (savedPreference === "true") {
+                savePasswordCheckbox.checked = true;
+                passwordInput.type = "text";
+            }
+        });
+
+        function validateLoginForm() {
+            // Reset error messages
+            document.getElementById("loginError").innerHTML = "";
+
+            // Get form values
+            var email = document.getElementById("email").value;
+            var password = document.getElementById("password").value;
+
+            // For demonstration purposes, consider a hardcoded email and password
+            var correctEmail = "user@example.com";
+            var correctPassword = "pass123";
+
+            // Validate email and password
+            if (email !== correctEmail || password !== correctPassword) {
+                document.getElementById("loginError").innerHTML = "Incorrect email or password";
+                return false;
+            }
+
+            // If "Save Password" is checked, save the preference in local storage
+            var savePasswordCheckbox = document.getElementById("savePassword");
+            if (savePasswordCheckbox.checked) {
+                var showPasswordCheckbox = document.getElementById("showPassword");
+                localStorage.setItem("showPassword", showPasswordCheckbox.checked.toString());
+            } else {
+                // If "Save Password" is not checked, remove the preference from local storage
+                localStorage.removeItem("showPassword");
+            }
+
+            // If all validations pass, return true to submit the form
+            return true;
+        }
+
+        function togglePassword() {
+            var passwordInput = document.getElementById("password");
+            var showPasswordCheckbox = document.getElementById("showPassword");
+
+            if (showPasswordCheckbox.checked) {
+                if (passwordInput.type === "password") {
+                    passwordInput.type = "text";
+                } else {
+                    passwordInput.type = "password";
+                }
+            }
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Registration Form</title>
+    <!-- Bootstrap CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body>
+
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h2 class="card-title text-center">Registration Form</h2>
+                        <form id="registrationForm" action="register.php" method="post" onsubmit="return validateForm()">
+                            <!-- Name -->
+                            <div class="mb-3">
+                                <label for="name" class="form-label">First Name</label>
+                                <input type="text" class="form-control" id="name" name="name" required>
+                                <div id="nameError" class="text-danger"></div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="surname" class="form-label">Last Name</label>
+                                <input type="text" class="form-control" id="surname" name="surname" required>
+                                <div id="surnameError" class="text-danger"></div>
+                            </div>
+
+                            <!-- Email -->
+                            <div class="mb-3">
+                                <label for="email" class="form-label">Email address</label>
+                                <input type="email" class="form-control" id="email" name="email" required>
+                                <div id="emailError" class="text-danger"></div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="phone" class="form-label">Phone Number</label>
+                                <input type="tel" class="form-control" id="phone" name="phone" required>
+                                <div id="phoneError" class="text-danger"></div>
+                            </div>
+
+                            <!-- Password -->
+                            <div class="mb-3">
+                                <label for="password" class="form-label">Password</label>
+                                <div class="input-group">
+                                    <input type="password" class="form-control" id="password" name="password" required>
+                                    <button type="button" class="btn btn-outline-secondary"
+                                        onclick="togglePassword()">Show/Hide</button>
+                                </div>
+                                <div id="passwordError" class="text-danger"></div>
+                            </div>
+
+                            <!-- Confirm Password -->
+                            <div class="mb-3">
+                                <label for="confirmPassword" class="form-label">Confirm Password</label>
+                                <input type="password" class="form-control" id="confirmPassword"
+                                    name="confirmPassword" required>
+                                <div id="confirmPasswordError" class="text-danger"></div>
+                            </div>
+
+                            <!-- Submit Button -->
+                            <button type="submit" class="btn btn-primary">Register</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS and Popper.js (Optional) -->
+    <script src="js/bootstrap.bundle.min.js"></script>
+
+    <!-- Custom JavaScript for form validation -->
+    <script>
+        function validateForm() {
+            // Reset error messages
+            document.getElementById("nameError").innerHTML = "";
+            document.getElementById("surnameError").innerHTML = "";
+            document.getElementById("emailError").innerHTML = "";
+            document.getElementById("phoneError").innerHTML = "";
+            document.getElementById("passwordError").innerHTML = "";
+            document.getElementById("confirmPasswordError").innerHTML = "";
+
+            // Get form values
+            var name = document.getElementById("name").value;
+            var surname = document.getElementById("surname").value;
+            var email = document.getElementById("email").value;
+            var phone = document.getElementById("phone").value;
+            var password = document.getElementById("password").value;
+            var confirmPassword = document.getElementById("confirmPassword").value;
+
+            // Validate name
+            if (name.trim() === "") {
+                document.getElementById("nameError").innerHTML = "First Name is required";
+                return false;
+            }
+
+            // Validate surname
+            if (surname.trim() === "") {
+                document.getElementById("surnameError").innerHTML = "Last Name is required";
+                return false;
+            }
+
+            // Validate email
+            if (email.trim() === "") {
+                document.getElementById("emailError").innerHTML = "Email is required";
+                return false;
+            }
+
+            // Validate phone
+            if (phone.trim() === "") {
+                document.getElementById("phoneError").innerHTML = "Phone Number is required";
+                return false;
+            } else {
+                var phoneRegex = /^\d{10}$/; // Assumes a 10-digit number, adjust as needed
+                if (!phoneRegex.test(phone)) {
+                    document.getElementById("phoneError").innerHTML = "Invalid phone number";
+                    return false;
+                }
+            }
+
+            // Validate password
+            if (password.trim() === "") {
+                document.getElementById("passwordError").innerHTML = "Password is required";
+                return false;
+            }
+
+            // Validate confirm password
+            if (confirmPassword.trim() === "") {
+                document.getElementById("confirmPasswordError").innerHTML = "Confirm Password is required";
+                return false;
+            }
+
+            // Check if passwords match
+            if (password !== confirmPassword) {
+                document.getElementById("passwordError").innerHTML = "Passwords do not match";
+                document.getElementById("confirmPasswordError").innerHTML = "Passwords do not match";
+                return false;
+            }
+
+            // If all validations pass, return true to submit the form
+            return true;
+        }
+
+        function togglePassword() {
+            var passwordInput = document.getElementById("password");
+            var buttonIcon = document.querySelector("#password + .input-group button");
+
+            if (passwordInput.type === "password") {
+                passwordInput.type = "text";
+                buttonIcon.textContent = "Hide Password";
+            } else {
+                passwordInput.type = "password";
+                buttonIcon.textContent = "Show Password";
+            }
+        }
+
+        // Set the initial text based on the initial state of the password input
+        document.addEventListener("DOMContentLoaded", function () {
+            var passwordInput = document.getElementById("password");
+            var buttonIcon = document.querySelector("#password + .input-group button");
+
+            if (passwordInput.type === "password") {
+                buttonIcon.textContent = "Show Password";
+            } else {
+                buttonIcon.textContent = "Hide Password";
+            }
+        });
+    </script>
+</body>
+
+</html>

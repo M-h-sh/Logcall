@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Edit Details and Log</title>
+    <!-- Bootstrap CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body>
+
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h2 class="card-title text-center">Edit Details and Log</h2>
+
+                        <div id="userDetailsForm">
+                            <form id="editUserDetailsForm" action="edit.php" onsubmit="return validateUserDetailsForm()">
+                                <!-- User details -->
+                                <input type="hidden" id="id" name="id" value="1"><!-- Adjust the value as needed -->
+
+                                <div class="mb-3">
+                                    <label for="name" class="form-label">First Name</label>
+                                    <input type="text" class="form-control" id="name" name="name" required>
+                                    <div id="nameError" class="text-danger"></div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="surname" class="form-label">Last Name</label>
+                                    <input type="text" class="form-control" id="surname" name="surname" required>
+                                    <div id="surnameError" class="text-danger"></div>
+                                </div>
+
+                                <!-- Email -->
+                                <div class="mb-3">
+                                    <label for="email" class="form-label">Email address</label>
+                                    <input type="email" class="form-control" id="email" name="email" required>
+                                    <div id="emailError" class="text-danger"></div>
+                                </div>
+
+                                <!-- Phone Number -->
+                                <div class="mb-3">
+                                    <label for="phone" class="form-label">Phone Number</label>
+                                    <input type="tel" class="form-control" id="phone" name="phone" required>
+                                    <div id="phoneError" class="text-danger"></div>
+                                </div>
+
+                                <!-- Switch to log form -->
+                                <button type="button" class="btn btn-secondary" onclick="showLogForm()">Switch to Log Form</button>
+
+                                <!-- Submit Button for User Details -->
+                                <button type="submit" class="btn btn-primary">Save Changes</button>
+                            </form>
+                        </div>
+
+                        <div id="logForm" style="display: none;">
+                            <form id="editLogForm" action="edit.php"  onsubmit="return validateLogForm()">
+                                <!-- Log details -->
+                                <input type="hidden" id="id" name="id" value="1"><!-- Adjust the value as needed -->
+
+                                <div class="mb-3">
+                                    <label for="description" class="form-label">Description</label>
+                                    <textarea class="form-control" id="description" name="description" rows="3" required></textarea>
+                                    <div id="descriptionError" class="text-danger"></div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="location" class="form-label">Location</label>
+                                    <input type="text" class="form-control" id="location" name="location" required>
+                                    <div id="locationError" class="text-danger"></div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="streetAddress" class="form-label">Street Address</label>
+                                    <input type="text" class="form-control" id="streetAddress" name="streetAddress" required>
+                                    <div id="streetAddressError" class="text-danger"></div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="city" class="form-label">City</label>
+                                    <input type="text" class="form-control" id="city" name="city" required>
+                                    <div id="cityError" class="text-danger"></div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="zipCode" class="form-label">Zip Code</label>
+                                    <input type="text" class="form-control" id="zipCode" name="zipCode" required>
+                                    <div id="zipCodeError" class="text-danger"></div>
+                                </div>
+
+                                <!-- Switch to user details form -->
+                                <button type="button" class="btn btn-secondary" onclick="showUserDetailsForm()">Switch to User Details Form</button>
+
+                                <!-- Submit Button for Log Details -->
+                                <button type="submit" class="btn btn-primary">Save Changes</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS and Popper.js (Optional) -->
+    <script src="js/bootstrap.bundle.min.js"></script>
+
+    <!-- Custom JavaScript to switch between forms and validate -->
+    <script>
+        function showLogForm() {
+            document.getElementById("userDetailsForm").style.display = "none";
+            document.getElementById("logForm").style.display = "block";
+        }
+
+        function showUserDetailsForm() {
+            document.getElementById("userDetailsForm").style.display = "block";
+            document.getElementById("logForm").style.display = "none";
+        }
+
+        function validateUserDetailsForm() {
+            // Reset error messages for user details form
+            document.getElementById("nameError").innerHTML = "";
+            document.getElementById("surnameError").innerHTML = "";
+            document.getElementById("emailError").innerHTML = "";
+            document.getElementById("phoneError").innerHTML = "";
+
+            // Get form values for user details
+            var name = document.getElementById("name").value;
+            var surname = document.getElementById("surname").value;
+            var email = document.getElementById("email").value;
+            var phone = document.getElementById("phone").value;
+
+            // Implement validation logic as needed
+
+            // If all validations pass, return true to submit the form
+            return true;
+        }
+
+        function validateLogForm() {
+            // Reset error messages for log form
+            document.getElementById("descriptionError").innerHTML = "";
+            document.getElementById("locationError").innerHTML = "";
+            document.getElementById("streetAddressError").innerHTML = "";
+            document.getElementById("cityError").innerHTML = "";
+            document.getElementById("zipCodeError").innerHTML = "";
+
+            // Get form values for log details
+            var description = document.getElementById("description").value;
+            var location = document.getElementById("location").value;
+            var streetAddress = document.getElementById("streetAddress").value;
+            var city = document.getElementById("city").value;
+            var zipCode = document.getElementById("zipCode").value;
+
+            // Implement validation logic as needed
+
+            // If all validations pass, return true to submit the form
+            return true;
+        }
+    </script>
+</body>
+
+</html>
